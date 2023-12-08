@@ -1,4 +1,5 @@
 const { log } = require('console');
+
 const fs = require('fs');
 const path = require('path');
 const dirNamePuzzles = path.join(__dirname, './puzzles.txt');
@@ -9,35 +10,26 @@ function read() {
 }
 
 let puzzles = read();
-let puzzles1 = puzzles.slice(0, 81);
+let puzzlesArr = puzzles.split('\r\n');
+let puzzlesArr1 = puzzles.split('').slice(0, 81);
 
 function transformationStrIsArray(str) {
+  const tabl = [];
   let strochka = [];
-  const result = [];
-  let indexMax = 9;
-  let indexMin = 0;
 
-  for (let j = 0; j < str.length; j += 1) {
-    if (strochka.length) {
-      result.push(strochka);
-      strochka = []
-      indexMax += 9;
-      indexMin += 0;
-    }
+  if (str.length == 0) return tabl;
 
-    for (let i = indexMin; i < indexMax; i += 1) {
-      if (str[i] === '-') {
-        strochka.push('NaN');
-      }
-      if (i < 9) {
-        strochka.push(str[i]);
-      }
+  for (let i = 0; i < str.length; i++) {
+    if (i == 8) {
+      strochka.push(str[i]);
+      tabl.push(strochka);
+      return tabl.concat(transformationStrIsArray(str.slice(9)));
     }
+    strochka.push(str[i]);
   }
-  return result;
 }
-
-let result = transformationStrIsArray(puzzles1);
+let result = transformationStrIsArray(puzzlesArr1);
+console.log(result);
 
 function solve() {
   /**
@@ -47,61 +39,59 @@ function solve() {
 }
 
 function isSolved(sud) {
-  let result = 0
-  let resultVertical = 0
-  let resultHorizontal = 0
-  let resultBox = 0
+  let result = 0;
+  let resultVertical = 0;
+  let resultHorizontal = 0;
+  let resultBox = 0;
 
-  
-  const  sumVertical = (a) => {
-      let sudSum = 0
-      for (let i = 0; i<9 ; i+=1) {
-        sudSum += +sud[i][a]
-        console.log(sudSum);
-      }
-      if (sudSum === 45) {
-          console.log(sudSum)
-          resultVertical += 1 
-      } 
+  const sumVertical = (a) => {
+    let sudSum = 0;
+    for (let i = 0; i < 9; i += 1) {
+      sudSum += +sud[i][a];
+      console.log(sudSum);
+    }
+    if (sudSum === 45) {
+      console.log(sudSum);
+      resultVertical += 1;
+    }
+  };
+  for (let j = 0; j < sud.length; j += 1) {
+    sumVertical(j);
   }
-  for (let j = 0; j <sud.length; j+=1) {
-      sumVertical(j)
-      }
   if (resultVertical === 9) {
-      return true
+    return true;
   } else {
-      return false
+    return false;
   }
-  
-  function sumBox(a,b,c) {
-      let sudSum = 0
-      for (let i = a; i < b+1 ; i+=1) {
-          let sumInSumSud = 0
-          for (let j = c; j < 3; j+=1) {
-              sumInSumSud += sud[a][c]
-          }
-          sudSum += sumInSumSud
+
+  function sumBox(a, b, c) {
+    let sudSum = 0;
+    for (let i = a; i < b + 1; i += 1) {
+      let sumInSumSud = 0;
+      for (let j = c; j < 3; j += 1) {
+        sumInSumSud += sud[a][c];
       }
-      if (sudSum === 45) {
-          return true 
-        } else {
-          return false
-        }
+      sudSum += sumInSumSud;
+    }
+    if (sudSum === 45) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   function sumHorizont(a) {
-      let sudSum = 0
-      for (let i = 0; i<9 ; i+=1) {
-        sudSum += +sud[a][i]
-      }
-      if (sudSum === 45) {
-          return true 
-        } else {
-          return false
-        }
+    let sudSum = 0;
+    for (let i = 0; i < 9; i += 1) {
+      sudSum += +sud[a][i];
+    }
+    if (sudSum === 45) {
+      return true;
+    } else {
+      return false;
+    }
   }
-  }
-
+}
 
 function prettyBoard(array) {
   /**
@@ -109,7 +99,7 @@ function prettyBoard(array) {
    * Выводит в консоль/терминал судоку.
    * Подумай, как симпатичнее его вывести.
    */
-  
+
   // const str = array.toString();
 
   // if (regexp.test(str)) {
@@ -117,13 +107,13 @@ function prettyBoard(array) {
   // return result;
   // }
   // return str;
-  let temp = "";
+  let temp = '';
   for (let i = 0; i < array.length; i += 1) {
     for (let j = 1; j < array.length; j += 1) {
       temp = `${temp}${array[i][j]}`;
     }
   }
-  console.log(temp);
+
   const regexp = /(\d)/;
 
   if (regexp.test(temp)) {
@@ -146,5 +136,3 @@ const input = [
   [5, 2, 6, 8, 4, 3, 7, 1, 9],
   [8, 1, 7, 9, 2, 5, 6, 3, 4],
 ];
-
-console.log(prettyBoard(input));

@@ -10,7 +10,6 @@ const sud = [
     [3,4,5,2,8,6,1,7,9]]
 let suds = '534678912672195348198342567859761423426853791713924856961537284287419635345286179'
 
-console.log(sud.length);
 
 function test (sud) {
     let resultHorizontal = 0
@@ -35,8 +34,6 @@ function test (sud) {
     }
 }
 
-
-console.log(test(sud));
 
 function isSolved(sud) {
     let result = 0
