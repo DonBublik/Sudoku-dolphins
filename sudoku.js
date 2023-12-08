@@ -1,5 +1,6 @@
 const { log } = require('console');
 
+
 const fs = require('fs');
 const path = require('path');
 const dirNamePuzzles = path.join(__dirname, './puzzles.txt');
@@ -10,6 +11,7 @@ function read() {
 }
 
 let puzzles = read();
+
 let puzzlesArr = puzzles.split('\r\n');
 let puzzlesArr1 = puzzles.split('').slice(0, 81);
 
@@ -27,9 +29,14 @@ function transformationStrIsArray(str) {
     }
     strochka.push(str[i]);
   }
+
+
+
 }
 let result = transformationStrIsArray(puzzlesArr1);
 console.log(result);
+
+let result = transformationStrIsArray(puzzles1);
 
 function solve() {
   /**
@@ -103,10 +110,26 @@ function solve() {
     }
 
 
-function prettyBoard() {
+function prettyBoard(array) {
   /**
    * Принимает игровое поле в том формате, в котором его вернули из функции solve.
    * Выводит в консоль/терминал судоку.
    * Подумай, как симпатичнее его вывести.
    */
+
+  return console.table(array);
 }
+
+const input = [
+  [4, 5, 3, 2, 1, 7, 8, 9, 6],
+  [1, 6, 2, 5, 8, 9, 4, 7, 3],
+  [7, 9, 8, 6, 3, 4, 2, 5, 1],
+  [2, 3, 1, 4, 5, 8, 9, 6, 7],
+  [9, 8, 5, 3, 7, 6, 1, 4, 2],
+  [6, 7, 4, 1, 9, 2, 3, 8, 5],
+  [3, 4, 9, 7, 6, 1, 5, 2, 8],
+  [5, 2, 6, 8, 4, 3, 7, 1, 9],
+  [8, 1, 7, 9, 2, 5, 6, 3, 4],
+];
+
+console.table(prettyBoard(input));
