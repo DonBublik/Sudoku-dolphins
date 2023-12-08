@@ -24,30 +24,8 @@ function prettyBoard(array) {
    * Выводит в консоль/терминал судоку.
    * Подумай, как симпатичнее его вывести.
    */
-  
-  // const str = array.toString();
 
-  // if (regexp.test(str)) {
-  // const result = str.replace(regexp, "$1$2$3 $4$5$6 $7$8$9");
-  // return result;
-  // }
-  // return str;
-  let temp = "";
-  for (let i = 0; i < array.length; i += 1) {
-    for (let j = 1; j < array.length; j += 1) {
-      temp = `${temp}${array[i][j]}`;
-    }
-  }
-  console.log(temp);
-  const regexp = /(\d)/;
-
-  if (regexp.test(temp)) {
-    const result = temp.replace(regexp, '');
-    return result;
-  }
-  return temp;
-
-  //
+  return console.table(array);
 }
 
 const input = [
@@ -62,4 +40,4 @@ const input = [
   [8, 1, 7, 9, 2, 5, 6, 3, 4],
 ];
 
-console.log(prettyBoard(input));
+console.table(prettyBoard(input));
