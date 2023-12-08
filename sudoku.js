@@ -1,4 +1,6 @@
 const { log } = require('console');
+
+
 const fs = require('fs');
 const path = require('path');
 const dirNamePuzzles = path.join(__dirname, './puzzles.txt');
@@ -9,33 +11,30 @@ function read() {
 }
 
 let puzzles = read();
-let puzzles1 = puzzles.slice(0, 81);
+
+let puzzlesArr = puzzles.split('\r\n');
+let puzzlesArr1 = puzzles.split('').slice(0, 81);
 
 function transformationStrIsArray(str) {
+  const tabl = [];
   let strochka = [];
-  const result = [];
-  let indexMax = 9;
-  let indexMin = 0;
 
-  for (let j = 0; j < str.length; j += 1) {
-    if (strochka.length) {
-      result.push(strochka);
-      strochka = []
-      indexMax += 9;
-      indexMin += 0;
-    }
+  if (str.length == 0) return tabl;
 
-    for (let i = indexMin; i < indexMax; i += 1) {
-      if (str[i] === '-') {
-        strochka.push('NaN');
-      }
-      if (i < 9) {
-        strochka.push(str[i]);
-      }
+  for (let i = 0; i < str.length; i++) {
+    if (i == 8) {
+      strochka.push(str[i]);
+      tabl.push(strochka);
+      return tabl.concat(transformationStrIsArray(str.slice(9)));
     }
+    strochka.push(str[i]);
   }
-  return result;
+
+
+
 }
+let result = transformationStrIsArray(puzzlesArr1);
+console.log(result);
 
 let result = transformationStrIsArray(puzzles1);
 
@@ -46,11 +45,6 @@ function solve() {
    */
 }
 
-function isSolved(sud) {
-  let result = 0
-  let resultVertical = 0
-  let resultHorizontal = 0
-  let resultBox = 0
 
   
   function isSolved(sud) {
