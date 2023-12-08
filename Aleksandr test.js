@@ -12,21 +12,40 @@ let suds = '53467891267219534819834256785976142342685379171392485696153728428741
 
 console.log(sud.length);
 
+
+
+const sumBox = (a,b,c) => {
+    let sumBox = 0
+    for (let i = a; i < b+1 ; i+=1) {
+        let sumInSumSud = 0
+        for (let j = c; j < 3; j+=1) {
+            sumInSumSud += sud[a][c]
+        }
+        sudSum += sumInSumSud
+    }
+    if (sudSum === 45) {
+        return true 
+      } 
+    for (let b = 0; b <9;b+=3) {
+        for (let m = 0; m<9;m+=3) {
+            sumBox()
+        }
+    }
+}
+
 function test (sud) {
     let resultHorizontal = 0
-    const  sumVertical = (a) => {
+    const  sumHorizont = (a) => {
         let sudSum = 0
         for (let i = 0; i<9 ; i+=1) {
-          sudSum += +sud[i][a]
-          console.log(sudSum);
+          sudSum += +sud[a][i]
         }
         if (sudSum === 45) {
-            console.log(sudSum)
             resultHorizontal += 1 
         } 
     }
     for (let j = 0; j <sud.length; j+=1) {
-        sumVertical(j)
+        sumHorizont(j)
         }
     if (resultHorizontal === 9) {
         return true
@@ -49,10 +68,8 @@ function isSolved(sud) {
         let sudSum = 0
         for (let i = 0; i<9 ; i+=1) {
           sudSum += +sud[i][a]
-          console.log(sudSum);
         }
         if (sudSum === 45) {
-            console.log(sudSum)
             resultVertical += 1 
         } 
     }
@@ -60,37 +77,45 @@ function isSolved(sud) {
         sumVertical(j)
         }
     if (resultVertical === 9) {
-        return true
-    } else {
-        return false
-    }
+        result +=1
+    } 
     
-    function sumBox(a,b,c) {
-        let sudSum = 0
-        for (let i = a; i < b+1 ; i+=1) {
-            let sumInSumSud = 0
-            for (let j = c; j < 3; j+=1) {
-                sumInSumSud += sud[a][c]
-            }
-            sudSum += sumInSumSud
-        }
-        if (sudSum === 45) {
-            return true 
-          } else {
-            return false
-          }
-    }
-
-    function sumHorizont(a) {
+    const  sumHorizont = (a) => {
         let sudSum = 0
         for (let i = 0; i<9 ; i+=1) {
           sudSum += +sud[a][i]
         }
         if (sudSum === 45) {
-            return true 
-          } else {
-            return false
-          }
+            resultHorizontal += 1 
+        } 
+    }
+    for (let j = 0; j <sud.length; j+=1) {
+        sumHorizont(j)
+        }
+    if (resultVertical === 9) {
+        result +=1
+    } 
+
+    // function sumBox(a,b,c) {
+    //     let sudSum = 0
+    //     for (let i = a; i < b+1 ; i+=1) {
+    //         let sumInSumSud = 0
+    //         for (let j = c; j < 3; j+=1) {
+    //             sumInSumSud += sud[a][c]
+    //         }
+    //         sudSum += sumInSumSud
+    //     }
+    //     if (sudSum === 45) {
+    //         return true 
+    //       } else {
+    //         return false
+    //       }
+    // }  
+    
+    if ( result === 18) {
+        return true
+    } else {
+        false
     }
     }
     // if (sumIsTrue(0,8) === true && sumIsTrue(0,8) === true && sumIsTrue(0,8) === true && )
